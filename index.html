@@ -1,4 +1,124 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StevenCAD - Blog</title>
+
+    <link rel="stylesheet" href="assets/css/style.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js" integrity="sha512-IaaKO80nPNs5j+VLxd42eK/7sYuXQmr+fyywCNA0e+C6gtQnuCXNtORe9xR4LqGPz5U9VpH+ff41wKs/ZmC3iA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github-dark.min.css" integrity="sha512-rO+olRTkcf304DQBxSWxln8JXCzTHlKnIdnMUwYvQa9/Jd4cQaNkItIUj6Z4nvW1dqK0SKXLbn9h4KwZTNtAyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        hljs.initHighlightingOnLoad();
+        $(document).ready(function(){
+            $('.blog-content a').attr('target', '_blank');
+         });
+    </script>
+</head>
 <body>
+<div class="block">
+    <div class="content">
+        <div class="blog-post">
+            <div class="header">
+                <h1>JSON Web Tokens</h1>
+                <div class="blog-info">
+                    <p>By Steven Tran</p>
+                    <p class="blog-date"><strong>Published:</strong> February 15, 2022</p>
+                </div>
+            </div>
+            <div class="blog-content">
+                <p class="question">Focus</p>
+                <p>The focus of this blog is to explain what are JSON Web Tokens, and why they should be used.</p>
+                <p class="question">What are JSON Web Tokens?</p>
+                <p>JSON Web Tokens (JWT) is a <a href="https://tools.ietf.org/html/rfc7519">RFC 7519 open Internet standard</a> for securely transmitting information between two parties as a JSON object. It usually consists of a header, payload, and signature.</p>
+                <figure>
+                    <img src="assets/img/blog1/structure.png" alt="JSON Web Token Structure">
+                    <figcaption><a href="https://en.wikipedia.org/wiki/JSON_Web_Token#Structure">1: JSON Web Token Structure</a></figcaption>
+                </figure>
+                <p>The signature acts as a hash to prevent the header and payload from being tampered with. While JSON Web Tokens can be decoded and viewed by anyone using <a href="https://jwt.io/#debugger-io">public tools</a>, it can also be <a href="https://datatracker.ietf.org/doc/html/rfc7516">encrypted using JSON Web Encryption (JWE)</a> to securely encrypt the entire token, should it contain any sensitive data that you wouldn't want to be easily viewable.</p>
+                <p class="question">Benefits of JSON Web Tokens</p>
+                <p>
+                    <ul>
+                        <li>
+                            <strong>Compact:</strong> It's small size makes JSON Web Tokens a good choice in HTML and HTTP environments, and can be sent through URL, POST, or in an HTTP header.
+                        </li>
+                        <li>
+                            <strong>Self-contained:</strong> The payload can contain all required information, avoiding extra queries to a database or API requests.
+                        </li>
+                    </ul>
+                </p>
+                <p class="question">What's stopping someone from messing with my token?</p>
+                <p>Although JSON Web Tokens can be encrypted using JWE, the main focus of this post is on <strong>signed</strong> tokens. Signed JSON Web Tokens be verified and trusted because they are digitally signed. JWTs can be signed using a commonly shared secret between two parties using the <a href="https://en.wikipedia.org/wiki/HMAC">HMAC</a> algorithm, or a public and private key pair using <a href="https://www.educative.io/edpresso/what-is-the-rsa-algorithm">RSA</a> or <a href="https://www.hypr.com/elliptic-curve-digital-signature-algorithm/">ECDSA</a> algorithms.</p>
+                <p>When verifying the token has not been tampered with, the signature of the token needs to coincide with the header and payload.</p>
+                <p class="question">What's the purpose of JSON Web Tokens?</p>
+                <p>JSON Web Tokens are primarily used for authorization, or information exchange. With the former being the most common use case for JWT. If none of those are your reasons for using it... why are you even using it?</p>
+                <p>When using JWTs for authentication, a JWT is created once a user is authenticated, containing data that proves the user is authenticated. A real-world example of this is the <a href="https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/">Single Sign On</a> feature that you may have encountered across many different websites.</p>
+                <p class="question">Diving deeper into JSON Web Token Structure</p>
+                <p>JSON Web Tokens consist of three parts separated by three dots <span class="code-highlight">.</span> formatted like <span class="code-highlight">header.payload.signature</span></p>
+                <p>The structure of JSON Web Tokens consist of:</p>
+                <p>
+                    <ul>
+                        <li><strong>Header:</strong> The header usually consists of two parts. First, the type of token (which is JWT), and the signing algorithm being used, which can be something like HMAC SHA256 or RSA.</li>
+                        <li><strong>Payload:</strong> The payload is the second part of the token, which contains the claims. Claims are statements about an entity, and contain additional data that a party may want to include.</li>
+                        <li><strong>Signature:</strong> The signature is used to verify that the message wasnt changed along the way.</li>
+                    </ul>
+                </p>
+                <p class="question">How the header is created</p>
+                <p>The header is a JSON array that is Base64Url encoded to form the header part of the JWT.</p>
+                <p>The JSON array can look someting like this:</p>
+                <p>
+<pre><code>{
+    "alg": "HS256",
+    "typ": "JWT"
+}</code></pre>
+                </p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+                <p>This is a test sentence.</p>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap');
+
+body
+{
+    background-image: url("../img/background.png");
+    background-color: #1d1d1d;
+    font-family: Titillium Web, sans-serif;
+    font-size: 14px;
+    overflow-x: hidden;
+}
+
+.block
+{
+    position: absolute;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 75px;
+    left: 0;
+}
+
+.content
+{
+    color: black;
+    background-color: white;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 75px;
+    text-align: center;
+}
+
+.header
+{
+    margin-bottom: 10px;
+    border-bottom: 2px solid black;
+}
+
+.blog-post
+{
+    text-align: left;
+    padding-left: 25%;
+    padding-right: 25%;
+    max-width: 50%;
+}
+
+.blog-content
+{
+    margin-top: 15px;
+}
+
+.blog-info
+{
+    margin-bottom: 22px;
+}
+
+.blog-date
+{
+    font-size: 14px;
+}
+
+h1
+{
+    font-size: 32px;
+    margin-bottom: 0;
+}
+
+h3, h2, p
+{
+    margin: 0;
+}
+
+p, ul
+{
+    font-size: 18px;
+}
+
+.blog-content a
+{
+    text-decoration-color: #1d1d1d;
+    color: #1d1d1d;
+}
+
+.blog-content p, ul
+{
+    text-align: justify;
+}
+
+.blog-content .question
+{
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.blog-content strong
+{
+    font-weight: 600;
+}
+
+.blog-content .question:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.code-highlight
+{
+    background-color: rgb(230, 230, 230);
+    padding: 0 5px;
+}
+
+code
+{
+    font-size: 14px;
+}
+
+::-webkit-scrollbar
+{
+    width: 8px;
+    background-color: #1d1d1d;
+}
+
+::-webkit-scrollbar-thumb
+{
+    width: 2px;
+    background-color: #2c64cc;
+}
