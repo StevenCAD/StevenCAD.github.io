@@ -16,6 +16,7 @@
     </script>
 </head>
 <body>
+<div class="pre-block-header"><h1>Steven Tran's Blog</h1></div>
 <div class="block">
     <div class="content">
         <div class="blog-post">
@@ -109,35 +110,25 @@
                 </p>
                 <p>You can decode the token and view the header and payload by going to a <a href="https://jwt.io/#debugger-io">public debugger provided by jwt.io</a>.</p>
                 <p class="question">So what makes JWT a better option than other Web Tokens?</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
+                <p>Other web tokens like Simple Web Tokens (SWT), and Security Assertion Markup Language Tokens (SAML) have their own benefits as well, but JWT is the better choice. JSON is less verbose than XML, and when encoded it’s size is also smaller, making it much more compact than SAML. This makes JWT a good choice in HTML and HTTP environments.</p>
+                <p>Security-wise, SWT can only be symmetrically signed by a shared secret using the HMAC algorithm, however, JWT can use a public/private key pair for signing. Securely signing XML is much more difficult when compared to signing JSON.</p>
+                <p>Because JWT is JSON, it makes it easy to parse. JSON parsers are very common in most programming languages because they map directly to objects. XML doesn’t have this same capability, making JWT much easier to work with across different languages.</p>
+                <p class="question">Conclusion</p>
+                <p>
+                    <figure>
+                        <iframe src="https://giphy.com/embed/z23hGvopHu7w4" width="480" height="291" frameBorder="0" class="giphy-embed"></iframe>
+                        <figcaption>
+                            <a href="https://giphy.com/gifs/relief-z23hGvopHu7w4">via GIPHY</a>
+                        </figcaption>
+                    </figure>
+                </p>
+                <p>That was a lot! So overall, JSON Web Tokens are a great solution for Authentication and Information Exchange in HTTP and HTML environments. In my next blog post, we'll go over how we can verify JSON Web Tokens, and how to make them with JavaScript.</p>
             </div>
         </div>
     </div>
+</div>
+<div class="post-block-footer">
+    <h3>&copy; 2022 Steven Tran</h3>
 </div>
 </body>
 </html>
