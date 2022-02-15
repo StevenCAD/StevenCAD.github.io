@@ -45,6 +45,7 @@ body
 .blog-content
 {
     margin-top: 15px;
+    display: inline;
 }
 
 .blog-info
@@ -104,6 +105,7 @@ p, ul
 {
     background-color: rgb(230, 230, 230);
     padding: 0 5px;
+    word-break: break-all;
 }
 
 code
@@ -113,6 +115,7 @@ code
 
 ::-webkit-scrollbar
 {
+    height: 8px;
     width: 8px;
     background-color: #1d1d1d;
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>StevenCAD - Blog</title>
+    <title>JSON Web Tokens</title>
 
     <link rel="stylesheet" href="assets/css/style.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -63,33 +63,52 @@
                         <li><strong>Signature:</strong> The signature is used to verify that the message wasnt changed along the way.</li>
                     </ul>
                 </p>
-                <p class="question">How the header is created</p>
-                <p>The header is a JSON array that is Base64Url encoded to form the header part of the JWT.</p>
-                <p>The JSON array can look someting like this:</p>
+                <p class="question">Header</p>
+                <p>The header is a JSON array that is Base64Url encoded to form the header part of the JSON Web Token.</p>
+                <p>The JSON array will look something like this before it's Base64Url encoded:</p>
                 <p>
 <pre><code>{
     "alg": "HS256",
     "typ": "JWT"
 }</code></pre>
                 </p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
-                <p>This is a test sentence.</p>
+                <p>And when Base64Url encoded, it'll look something like: <span class="code-highlight">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span></p>
+                <p class="question">Payload</p>
+                <p>The payload is the second part of the token. While the payload contains claims, there are three types of claims:</p>
+                <p>
+                    <ul>
+                        <li><strong>Registered Claims:</strong> Predefined claims such as iss (issuer), exp (expiration time), aud (audience).</li>
+                        <li><strong>Private Claims:</strong> Custom claims created to share additional information between two parties that are not registered or public claims.</li>
+                        <li><strong>Public Claims:</strong> While similar to private claims, public claims should be defined in the <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA JSON Web Token Registry</a> or be defined as a URI that contains a collision resistant namespace to avoid collisions.</li>
+                    </ul>
+                </p>
+                <p>An example of the payload prior to being Base64Url encoded looks like this:</p>
+                <p>
+<pre><code>{
+    "sub": "JSON Web Tokens",
+    "name": "Steven Tran",
+    "iat": 1516239022
+}</code></pre>
+                </p>
+                <p>And after Base64Url encoding our JSON array above, our result will look something like: <span class="code-highlight">eyJzdWIiOiJKU09OIFdlYiBUb2tlbnMiLCJuYW1lIjoiU3RldmVuIFRyYW4iLCJpYXQiOjE1MTYyMzkwMjJ9</span></p>
+                <p class="question">Signature</p>
+                <p>To create the signature, you have to take the <strong>encoded</strong> header and payload, a secret, and the algorithm specified in the header, and sign that.</p>
+                <p>In our above example, our algorithm is <span class="code-highlight">HS256</span> which is the HMAC SHA256 algorithm. So to create our signature, it will look something like:</p>
+                <p>
+<pre class="javascript"><code>HMACSHA256(
+    base64UrlEncode(header) + "." +
+    base64UrlEncode(payload),
+    secret)
+</code></pre>
+                </p>
+                <p>The <span class="code-highlight">secret</span> is something the signer can define. In this case, we'll make our secret <span class="code-highlight">steven2022</span>, which will give us a Base64Url result of <span class="code-highlight">_NN-nHdxxFj-j2oNIUg5TNzw0fvElocMKMYsAyNe2Dc</span></p>
+                <p class="question">Putting it all together</p>
+                <p>Now that we have our header, payload, and signature, we will get a token like this:</p>
+                <p>
+                <pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbnMiLCJuYW1lIjoiU3RldmVuIFRyYW4iLCJpYXQiOjE1MTYyMzkwMjJ9._NN-nHdxxFj-j2oNIUg5TNzw0fvElocMKMYsAyNe2Dc</code></pre>
+                </p>
+                <p>You can decode the token and view the header and payload by going to a <a href="https://jwt.io/#debugger-io">public debugger provided by jwt.io</a>.</p>
+                <p class="question">So what makes JWT a better option than other Web Tokens?</p>
                 <p>This is a test sentence.</p>
                 <p>This is a test sentence.</p>
                 <p>This is a test sentence.</p>
