@@ -47,12 +47,12 @@
                         </li>
                     </ul>
                 </p>
-                <p class="question">What's stopping someone from messing with my token?</p>
+                <p class="question">What's stopping someone from tampering with my token?</p>
                 <p>Although JSON Web Tokens can be encrypted using JWE, the main focus of this post is on <strong>signed</strong> tokens. Signed JSON Web Tokens be verified and trusted because they are digitally signed. JWTs can be signed using a commonly shared secret between two parties using the <a href="https://en.wikipedia.org/wiki/HMAC">HMAC</a> algorithm, or a public and private key pair using <a href="https://www.educative.io/edpresso/what-is-the-rsa-algorithm">RSA</a> or <a href="https://www.hypr.com/elliptic-curve-digital-signature-algorithm/">ECDSA</a> algorithms.</p>
-                <p>When verifying the token has not been tampered with, the signature of the token needs to coincide with the header and payload.</p>
+                <p>When verifying the token has not been tampered with in transit, the signature of the token needs to match the integrity of the header and payload.</p>
                 <p class="question">What's the purpose of JSON Web Tokens?</p>
                 <p>JSON Web Tokens are primarily used for authorization, or information exchange. With the former being the most common use case for JWT. If none of those are your reasons for using it... why are you even using it?</p>
-                <p>When using JWTs for authentication, a JWT is created once a user is authenticated, containing data that proves the user is authenticated. A real-world example of this is the <a href="https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/">Single Sign On</a> feature that you may have encountered across many different websites.</p>
+                <p>When using JWTs for authentication, a JWT can bve created once a user is authenticated, containing data that proves the user is authenticated and they are who they say they are. While JSON Web Tokens are used for authentication, it doesn't always mean you should replace what you have with JWTs. JWTs are most useful for things like <a href="https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/">Single Sign On</a> where they need to ensure that you are authenticated across different domains or platforms, without having to revalidate everything and make database requests.</p>
                 <p class="question">Diving deeper into JSON Web Token Structure</p>
                 <p>JSON Web Tokens consist of three parts separated by three dots <span class="code-highlight">.</span> formatted like <span class="code-highlight">header.payload.signature</span></p>
                 <p>The structure of JSON Web Tokens consist of:</p>
