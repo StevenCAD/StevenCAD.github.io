@@ -16,7 +16,7 @@
     </script>
 </head>
 <body>
-<div class="pre-block-header"><h1>Steven Tran's Blog</h1></div>
+<div class="pre-block-header"><h1>Steven's Blog</h1></div>
 <div class="block">
     <div class="content">
         <div class="blog-post">
@@ -29,12 +29,11 @@
             </div>
             <div class="blog-content">
                 <p class="question">Focus</p>
-                <p>The focus of this blog is to explain what are JSON Web Tokens, and why they should be used.</p>
+                <p>The focus of this blog post is to explain what are JSON Web Tokens, why they should be used, and how they're being used in todays industry.</p>
                 <p class="question">What are JSON Web Tokens?</p>
                 <p>JSON Web Tokens (JWT) is a <a href="https://tools.ietf.org/html/rfc7519">RFC 7519 open Internet standard</a> for securely transmitting information between two parties as a JSON object. It usually consists of a header, payload, and signature.</p>
                 <figure>
-                    <img src="assets/img/blog1/structure.png" alt="JSON Web Token Structure">
-                    <figcaption><a href="https://en.wikipedia.org/wiki/JSON_Web_Token#Structure">1: JSON Web Token Structure</a></figcaption>
+                    <img src="assets/img/blog1/jwt_structure.png" alt="JSON Web Token Structure">
                 </figure>
                 <p>The signature acts as a hash to prevent the header and payload from being tampered with. While JSON Web Tokens can be decoded and viewed by anyone using <a href="https://jwt.io/#debugger-io">public tools</a>, it can also be <a href="https://datatracker.ietf.org/doc/html/rfc7516">encrypted using JSON Web Encryption (JWE)</a> to securely encrypt the entire token, should it contain any sensitive data that you wouldn't want to be easily viewable.</p>
                 <p class="question">Benefits of JSON Web Tokens</p>
@@ -68,7 +67,7 @@
                 <p>The header is a JSON array that is Base64Url encoded to form the header part of the JSON Web Token.</p>
                 <p>The JSON array will look something like this before it's Base64Url encoded:</p>
                 <p>
-<pre><code>{
+<pre class="json"><code>{
     "alg": "HS256",
     "typ": "JWT"
 }</code></pre>
@@ -85,7 +84,7 @@
                 </p>
                 <p>An example of the payload prior to being Base64Url encoded looks like this:</p>
                 <p>
-<pre><code>{
+<pre class="json"><code>{
     "sub": "JSON Web Tokens",
     "name": "Steven Tran",
     "iat": 1516239022
@@ -114,21 +113,13 @@
                 <p>Security-wise, SWT can only be symmetrically signed by a shared secret using the HMAC algorithm, however, JWT can use a public/private key pair for signing. Securely signing XML is much more difficult when compared to signing JSON.</p>
                 <p>Because JWT is JSON, it makes it easy to parse. JSON parsers are very common in most programming languages because they map directly to objects. XML doesn’t have this same capability, making JWT much easier to work with across different languages.</p>
                 <p class="question">Conclusion</p>
-                <p>
-                    <figure>
-                        <iframe src="https://giphy.com/embed/z23hGvopHu7w4" width="480" height="291" frameBorder="0" class="giphy-embed"></iframe>
-                        <figcaption>
-                            <a href="https://giphy.com/gifs/relief-z23hGvopHu7w4">via GIPHY</a>
-                        </figcaption>
-                    </figure>
-                </p>
-                <p>That was a lot! So overall, JSON Web Tokens are a great solution for Authentication and Information Exchange in HTTP and HTML environments. In my next blog post, we'll go over how we can verify JSON Web Tokens, and how to make them with JavaScript.</p>
+                <p>Overall, JSON Web Tokens offer a great solution for Authentication and Information Exchange in HTTP and HTML environments, especially considering it's secure and widely used nature. In my next blog post, we'll go over how we can verify JSON Web Tokens, and how to use them for Information Exchange between two parties with JavaScript.</p>
             </div>
         </div>
     </div>
 </div>
 <div class="post-block-footer">
-    <h3>&copy; 2022 Steven Tran</h3>
+    <p>&copy; 2022 Steven Tran</p>
 </div>
 </body>
 </html>
