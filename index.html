@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale:1.0">
     <title>JSON Web Tokens</title>
 
     <link rel="stylesheet" href="assets/css/style.css"/>
@@ -32,9 +33,9 @@
                 <p>The focus of this blog post is to explain what are JSON Web Tokens, why they should be used, and how they're being used in todays industry.</p>
                 <p class="question">What are JSON Web Tokens?</p>
                 <p>JSON Web Tokens (JWT) is a <a href="https://tools.ietf.org/html/rfc7519">RFC 7519 open Internet standard</a> for securely transmitting information between two parties as a JSON object. It usually consists of a header, payload, and signature.</p>
-                <figure>
-                    <img src="assets/img/blog1/jwt_structure.png" alt="JSON Web Token Structure">
-                </figure>
+                <div class="img-wrap">
+                        <img src="assets/img/blog1/jwt_structure.png" alt="JSON Web Token Structure">
+                </div>
                 <p>The signature acts as a hash to prevent the header and payload from being tampered with. While JSON Web Tokens can be decoded and viewed by anyone using <a href="https://jwt.io/#debugger-io">public tools</a>, it can also be <a href="https://datatracker.ietf.org/doc/html/rfc7516">encrypted using JSON Web Encryption (JWE)</a> to securely encrypt the entire token, should it contain any sensitive data that you wouldn't want to be easily viewable.</p>
                 <p class="question">Benefits of JSON Web Tokens</p>
                 <p>

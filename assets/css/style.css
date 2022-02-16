@@ -31,6 +31,13 @@ code
     font-size: 14px;
 }
 
+img
+{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
 ::-webkit-scrollbar
 {
     height: 8px;
@@ -162,7 +169,6 @@ code
 
 .blog-content table
 {
-    display: inline-block;
     color: #c9d1d9;
     background-color: #0d1117;
     border-collapse: collapse;
@@ -191,6 +197,12 @@ code
     padding: 6px 13px;
     border: 1px solid #344050;
     word-break: break-all;
+}
+
+.blog-content .img-wrap
+{
+    overflow: hidden;
+    margin: 8px;
 }
 
 tr.table-footer td
