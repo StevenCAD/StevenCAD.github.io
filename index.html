@@ -30,38 +30,32 @@
             </div>
             <div class="blog-content">
                 <p class="question">Focus</p>
-                <p>The focus of this blog post is to explain what are JSON Web Tokens, why they should be used, and how they're being used in todays industry.</p>
+                <p>The focus of this blog post is to explain what are JSON Web Tokens, why it should be used, and how it's being used in todays industry.</p>
                 <p class="question">What are JSON Web Tokens?</p>
-                <p>JSON Web Tokens (JWT) is a <a href="https://tools.ietf.org/html/rfc7519">RFC 7519 open Internet standard</a> for securely transmitting information between two parties as a JSON object. It usually consists of a header, payload, and signature.</p>
+                <p>JSON Web Tokens (JWT) is a <a href="https://tools.ietf.org/html/rfc7519">RFC 7519 open Internet standard</a> for securely transmitting information between two parties as a JSON object. JWTs are extremely popular among authentication developers, I go further into detail why this is the case. JWTs consists of a header, payload, and signature.</p>
                 <div class="img-wrap">
                     <img src="assets/img/blog1/jwt_structure.png" alt="JSON Web Token Structure">
                 </div>
-                <p>The signature acts as a hash to prevent the header and payload from being tampered with. While JSON Web Tokens can be decoded and viewed by anyone using <a href="https://jwt.io/#debugger-io">public tools</a>, it can also be <a href="https://datatracker.ietf.org/doc/html/rfc7516">encrypted using JSON Web Encryption (JWE)</a> to securely encrypt the entire token, should it contain any sensitive data that you wouldn't want to be easily viewable.</p>
+                <p>The signature acts as a hash to prevent the header and payload from being tampered with. While JSON Web Tokens can be decoded and viewed by anyone using <a href="https://jwt.io/#debugger-io">public tools</a>, it can also be <a href="https://datatracker.ietf.org/doc/html/rfc7516">encrypted using JSON Web Encryption (JWE)</a> to securely encrypt the entire token, if it contains any sensitive data that you wouldn't anyone to easily decode and read.</p>
                 <p class="question">Benefits of JSON Web Tokens</p>
                 <p>
                     <ul>
                         <li>
-                            <strong>Compact:</strong> It's small size makes JSON Web Tokens a good choice in HTML and HTTP environments, and can be sent through URL, POST, or in an HTTP header.
+                            <strong>Compact:</strong> It's small size makes JSON Web Tokens a good choice in HTML and HTTP environments, and can be sent through a URL, POST request, or in an HTTP header.
                         </li>
                         <li>
                             <strong>Self-contained:</strong> The payload can contain all required information, avoiding extra queries to a database or API.
                         </li>
                     </ul>
                 </p>
-                <p class="question">What's stopping someone from tampering with my token?</p>
-                <p>Although JSON Web Tokens can be encrypted using JSON Web Encryption (JWE), the main focus of this post is on <strong>signed</strong> tokens. Signed JSON Web Tokens be verified and trusted because they are digitally signed. JWTs can be signed using a commonly shared secret between two parties using the <a href="https://en.wikipedia.org/wiki/HMAC">HMAC</a> algorithm, or a public and private key pair using <a href="https://www.educative.io/edpresso/what-is-the-rsa-algorithm">RSA</a> or <a href="https://www.hypr.com/elliptic-curve-digital-signature-algorithm/">ECDSA</a> algorithms.</p>
-                <p>When verifying the token has not been tampered with in transit, the signature of the token needs to match the integrity of the header and payload.</p>
-                <p class="question">What's the purpose of JSON Web Tokens?</p>
-                <p>JSON Web Tokens are primarily used for authorization, or information exchange. With the former being the most common use case for JWT. If none of those are your reasons for using it... why are you even using it?</p>
-                <p>When using JWTs for authentication, a JWT can be created once a user is authenticated, containing data that proves the user is authenticated and they are who they say they are. While JSON Web Tokens are used for authentication, it doesn't always mean you should replace what you have with JWTs. JWTs are most useful for things like <a href="https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/">Single Sign On</a> where they need to ensure that you are authenticated across different domains or platforms, without having to revalidate everything and make database requests.</p>
                 <p class="question">Diving deeper into JSON Web Token Structure</p>
                 <p>JSON Web Tokens consist of three parts separated by three dots <span class="code-highlight">.</span> formatted like <span class="code-highlight">header.payload.signature</span></p>
                 <p>The structure of JSON Web Tokens consist of:</p>
                 <p>
                     <ul>
-                        <li><strong>Header:</strong> The header usually consists of two parts. First, the type of token (which is JWT), and the signing algorithm being used, which can be something like HMAC SHA256 or RSA.</li>
-                        <li><strong>Payload:</strong> The payload is the second part of the token, which contains the claims. Claims are statements about an entity, and contain additional data that a party may want to include.</li>
-                        <li><strong>Signature:</strong> The signature is used to verify that the message wasnt changed along the way.</li>
+                        <li><strong>Header:</strong> The header usually consists of two parts. First, the signing algorithm. The signing algorithm can be something like <span class="code-highlight">HS256</span> which is the HMAC SHA256 algorithm. Second, the token type, which in this case is <span class="code-highlight">JWT</span>. While the algorithm is required in the header, the token type is not.</li>
+                        <li><strong>Payload:</strong> The payload is the second part of the JSON Web Token, which contains our claims. Claims are statements about an entity, and can contain additional data that the sending party may want to include.</li>
+                        <li><strong>Signature:</strong> The signature is used to verify that the header and payload were not tampered with after it's creation.</li>
                     </ul>
                 </p>
                 <p class="question">Header</p>
@@ -78,9 +72,29 @@
                 <p>The payload is the second part of the token. While the payload contains claims, there are three types of claims:</p>
                 <p>
                     <ul>
-                        <li><strong>Registered Claims:</strong> Predefined claims such as iss (issuer), exp (expiration time), aud (audience).</li>
-                        <li><strong>Private Claims:</strong> Custom claims created to share additional information between two parties that are not registered or public claims.</li>
-                        <li><strong>Public Claims:</strong> While similar to private claims, public claims should be defined in the <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA JSON Web Token Registry</a> or be defined as a URI that contains a collision resistant namespace to avoid collisions.</li>
+                        <li>
+                            <strong>Registered Claims:</strong> Predefined claims such as iss (issuer), exp (expiration time), aud (audience).
+<pre class="json"><code>{
+    "iss": "stevencad",
+    "exp": 1644991872,
+    "aud": "you"
+}</code></pre>
+                        </li>
+                        <li>
+                            <strong>Private Claims:</strong> Custom claims created to share additional information between two parties that are not registered or public claims.
+<pre class="json"><code>{
+    "authenticated": true,
+    "user_group": "1,2",
+}</code></pre>
+                        </li>
+                        <li>
+                            <strong>Public Claims:</strong> While similar to private claims, public claims should be defined in the <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA JSON Web Token Registry</a> or be defined as a URI that contains a collision resistant namespace to avoid collisions.
+<pre class="json"><code>{
+    "name": "Steven Tran",
+    "website": "stevencad.github.io",
+    "email_verified": true
+}</code></pre>
+                        </li>
                     </ul>
                 </p>
                 <p>An example of the payload prior to being Base64Url encoded looks like this:</p>
@@ -109,10 +123,33 @@
                 <pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbnMiLCJuYW1lIjoiU3RldmVuIFRyYW4iLCJpYXQiOjE1MTYyMzkwMjJ9._NN-nHdxxFj-j2oNIUg5TNzw0fvElocMKMYsAyNe2Dc</code></pre>
                 </p>
                 <p>You can decode the token and view the header and payload by going to a <a href="https://jwt.io/#debugger-io">public debugger provided by jwt.io</a>.</p>
+                <p class="question">What's stopping someone from tampering with my token?</p>
+                <p>Although JSON Web Tokens can be encrypted using JSON Web Encryption (JWE), the main focus of this post is on <strong>signed</strong> tokens. Signed JSON Web Tokens be verified and trusted because they are digitally signed. JWTs can be signed using a commonly shared secret between two parties using the <a href="https://en.wikipedia.org/wiki/HMAC">HMAC</a> algorithm, or a public and private key pair using <a href="https://www.educative.io/edpresso/what-is-the-rsa-algorithm">RSA</a> or <a href="https://www.hypr.com/elliptic-curve-digital-signature-algorithm/">ECDSA</a> algorithms.</p>
+                <p>When verifying the token has not been tampered with in transit, the signature of the token needs to match the integrity of the header and payload. Altering the header or payload will result in a signature mismatch, alerting the recipient party that the token was tampered with.</p>
+                <p>Additionally, when verifying the token, you must enter your shared secret or public key. If the key does not correspond with the signature, the token will fail to verify. This prevents anyone from just signing the token and passing it to your application.</p>
+                <p class="question">What's the purpose of JSON Web Tokens?</p>
+                <p>JSON Web Tokens are primarily used for authorization, or information exchange. With the former being the most common use case for JWT. If none of those are your reasons for using it... why are you even using it?</p>
+                <p>When using JWTs for authentication, a JWT can be created once a user is authenticated, containing data that proves the user is authenticated and they are who they say they are. While JSON Web Tokens are used for authentication, it doesn't always mean you should replace what you have with JWTs. JWTs are most useful for things like <a href="https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/">Single Sign On</a> where they need to ensure that you are authenticated across different domains or platforms, without having to revalidate everything and make database requests.</p>
+                <p>A real world example of this is <a href="https://auth0.com/docs/authenticate/single-sign-on">Single Sign on by Auth9</a>. They have a central authorization server that generates JSON web tokens, and allows for fast and non-repetitive authentication.</p>
+                <p class="question">How does it work?</p>
+                <p>
+                    When JSON Web Tokens are used for authentication, the user needs to successfully login using their credentials before a JWT is generated and returned.
+                    Since tokens are a form of credentials, great care must be taken to prevent security issues. Meaning, you should not store any sensitive data due to lack of security.
+                </p>
+                <p>
+                    Whenever the user wants to access a certain page, it should send the JWT. This can be done by using the Authorization header, in the Bearer schema.
+                    Therefore, the header sent by the user should look like: <span class="code-highlight">Authorization: Bearer &#60;token&#62;</span>
+                </p>
+                <p>
+                    As a result of implementing JSON Web Tokens, this is a form of stateless authentication, as the user state is never saved in the server memory, saving resources.
+                    The server will instead check for a valid JWT in the Authorization header, and if there is a valid JWT, the user is allowed to proceed to the page.
+                    Because of this, it eliminates the need of having to store session data, and constantly querying the database.
+                </p>
                 <p class="question">So what makes JWT a better option than other Web Tokens?</p>
                 <p>Other web tokens like Simple Web Tokens (SWT), and Security Assertion Markup Language Tokens (SAML) have their own benefits as well, but JWT is the better choice. JSON is less verbose than XML, and when encoded it’s size is also smaller, making it much more compact than SAML. This makes JWT a good choice in HTML and HTTP environments.</p>
+                <p>A major flaw with signing XML with XML Digital Signature is the amount of overhead required to prevent introduction obscure security holes, in comparison, signing JSON is much easier and simplified.</p>
                 <p>Security-wise, SWT can only be symmetrically signed by a shared secret using the HMAC algorithm, however, JWT can use a public/private key pair for signing. Securely signing XML is much more difficult when compared to signing JSON.</p>
-                <p>Because JWT is JSON, it makes it easy to parse. JSON parsers are very common in most programming languages because they map directly to objects. XML doesn’t have this same capability, making JWT much easier to work with across different languages.</p>
+                <p>Because JWT is JSON, it makes it easy to parse. JSON parsers are very common in most programming languages because they map directly to objects. XML doesnt have any natural document-to-object mapping, making JWT much easier to work with across different languages in comparison to SAML assertions.</p>
                 <p class="question">Conclusion</p>
                 <p>Overall, JSON Web Tokens offer a great solution for Authentication and Information Exchange in HTTP and HTML environments, especially considering it's secure and widely used nature. In my next blog post, we'll go over how we can verify JSON Web Tokens, and how to use them for Information Exchange between two parties with JavaScript.</p>
             </div>
