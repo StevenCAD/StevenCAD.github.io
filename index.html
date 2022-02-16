@@ -34,7 +34,7 @@
                 <p class="question">What are JSON Web Tokens?</p>
                 <p>JSON Web Tokens (JWT) is a <a href="https://tools.ietf.org/html/rfc7519">RFC 7519 open Internet standard</a> for securely transmitting information between two parties as a JSON object. It usually consists of a header, payload, and signature.</p>
                 <div class="img-wrap">
-                        <img src="assets/img/blog1/jwt_structure.png" alt="JSON Web Token Structure">
+                    <img src="assets/img/blog1/jwt_structure.png" alt="JSON Web Token Structure">
                 </div>
                 <p>The signature acts as a hash to prevent the header and payload from being tampered with. While JSON Web Tokens can be decoded and viewed by anyone using <a href="https://jwt.io/#debugger-io">public tools</a>, it can also be <a href="https://datatracker.ietf.org/doc/html/rfc7516">encrypted using JSON Web Encryption (JWE)</a> to securely encrypt the entire token, should it contain any sensitive data that you wouldn't want to be easily viewable.</p>
                 <p class="question">Benefits of JSON Web Tokens</p>
@@ -53,7 +53,7 @@
                 <p>When verifying the token has not been tampered with in transit, the signature of the token needs to match the integrity of the header and payload.</p>
                 <p class="question">What's the purpose of JSON Web Tokens?</p>
                 <p>JSON Web Tokens are primarily used for authorization, or information exchange. With the former being the most common use case for JWT. If none of those are your reasons for using it... why are you even using it?</p>
-                <p>When using JWTs for authentication, a JWT can bve created once a user is authenticated, containing data that proves the user is authenticated and they are who they say they are. While JSON Web Tokens are used for authentication, it doesn't always mean you should replace what you have with JWTs. JWTs are most useful for things like <a href="https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/">Single Sign On</a> where they need to ensure that you are authenticated across different domains or platforms, without having to revalidate everything and make database requests.</p>
+                <p>When using JWTs for authentication, a JWT can be created once a user is authenticated, containing data that proves the user is authenticated and they are who they say they are. While JSON Web Tokens are used for authentication, it doesn't always mean you should replace what you have with JWTs. JWTs are most useful for things like <a href="https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/">Single Sign On</a> where they need to ensure that you are authenticated across different domains or platforms, without having to revalidate everything and make database requests.</p>
                 <p class="question">Diving deeper into JSON Web Token Structure</p>
                 <p>JSON Web Tokens consist of three parts separated by three dots <span class="code-highlight">.</span> formatted like <span class="code-highlight">header.payload.signature</span></p>
                 <p>The structure of JSON Web Tokens consist of:</p>
