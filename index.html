@@ -44,12 +44,12 @@
                             <strong>Compact:</strong> It's small size makes JSON Web Tokens a good choice in HTML and HTTP environments, and can be sent through URL, POST, or in an HTTP header.
                         </li>
                         <li>
-                            <strong>Self-contained:</strong> The payload can contain all required information, avoiding extra queries to a database or API requests.
+                            <strong>Self-contained:</strong> The payload can contain all required information, avoiding extra queries to a database or API.
                         </li>
                     </ul>
                 </p>
                 <p class="question">What's stopping someone from tampering with my token?</p>
-                <p>Although JSON Web Tokens can be encrypted using JWE, the main focus of this post is on <strong>signed</strong> tokens. Signed JSON Web Tokens be verified and trusted because they are digitally signed. JWTs can be signed using a commonly shared secret between two parties using the <a href="https://en.wikipedia.org/wiki/HMAC">HMAC</a> algorithm, or a public and private key pair using <a href="https://www.educative.io/edpresso/what-is-the-rsa-algorithm">RSA</a> or <a href="https://www.hypr.com/elliptic-curve-digital-signature-algorithm/">ECDSA</a> algorithms.</p>
+                <p>Although JSON Web Tokens can be encrypted using JSON Web Encryption (JWE), the main focus of this post is on <strong>signed</strong> tokens. Signed JSON Web Tokens be verified and trusted because they are digitally signed. JWTs can be signed using a commonly shared secret between two parties using the <a href="https://en.wikipedia.org/wiki/HMAC">HMAC</a> algorithm, or a public and private key pair using <a href="https://www.educative.io/edpresso/what-is-the-rsa-algorithm">RSA</a> or <a href="https://www.hypr.com/elliptic-curve-digital-signature-algorithm/">ECDSA</a> algorithms.</p>
                 <p>When verifying the token has not been tampered with in transit, the signature of the token needs to match the integrity of the header and payload.</p>
                 <p class="question">What's the purpose of JSON Web Tokens?</p>
                 <p>JSON Web Tokens are primarily used for authorization, or information exchange. With the former being the most common use case for JWT. If none of those are your reasons for using it... why are you even using it?</p>
