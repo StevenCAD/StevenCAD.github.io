@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale:1.0">
+    <title>JSON Web Tokens | Part Two</title>
+
+    <link rel="stylesheet" href="assets/css/style.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js" integrity="sha512-IaaKO80nPNs5j+VLxd42eK/7sYuXQmr+fyywCNA0e+C6gtQnuCXNtORe9xR4LqGPz5U9VpH+ff41wKs/ZmC3iA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github-dark.min.css" integrity="sha512-rO+olRTkcf304DQBxSWxln8JXCzTHlKnIdnMUwYvQa9/Jd4cQaNkItIUj6Z4nvW1dqK0SKXLbn9h4KwZTNtAyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        hljs.initHighlightingOnLoad();
+        $(document).ready(function(){
+            $('.blog-content a').attr('target', '_blank');
+         });
+    </script>
+</head>
+<body>
+<div class="pre-block-header"><h1>Steven's Blog</h1></div>
+<div class="block">
+    <div class="content">
+        <div class="blog-post">
+            <div class="header">
+                <h1>JSON Web Tokens | Part Two</h1>
+                <div class="blog-info">
+                    <p>By Steven Tran</p>
+                    <p class="blog-date"><strong>Published:</strong> April 5, 2022</p>
+                </div>
+            </div>
+            <div class="blog-content">
+                <p class="question">Focus</p>
+                <p>In my <a href="index.html">previous blog post</a>, I discussed what JSON web tokens are, and it's purpose. In this post, we are going to showcase a step-by-step implementation of JSON web tokens for authentication using Node.js. If you would like a bit more in-depth knowledge of the process of authentication, you can check out <a href="https://www.youtube.com/watch?v=soGRyl9ztjI">this video</a>.</p>
+                <p class="question">Prerequisites</p>
+                <p>Before getting started, you should have a basic understanding of Node.js and programming. This will make it easier for you to understand what we're doing.</p>
+                <p>You'll need <a href="https://www.npmjs.com/">node package manager (npm)</a>, and an extension called Rest Client for Visual Studio Code. We'll be developing this entire project with Visual Studio Code.</p>
+                <p class="question">Getting Started</p>
+                <p>
+                    So, assuming you understand the basics of Node.js, we're going to get straight into setting up our project. The first thing you want to do is create a folder that will contain your project, and you'll want to <span class="code-highlight">cd</span> into that directory using a command prompt. The next thing you'll want to do is enter <span class="code-highlight">npm init -y</span> to initialize your Node.js project.
+                </p>
+                <p>
+                    We're going to use two libraries, <span class="code-highlight">express</span> and a library called <span class="code-highlight">jsonwebtoken</span>. We'll also be using environment variables to store our secret tokens for JSON Web Tokens. So the next command we'll enter into our command prompt is <span class="code-highlight">npm i express jsonwebtoken dotenv</span>.
+                </p>
+                <p>Lastly, we're going to install <span class="code-highlight">nodemon</span>, which will be our developer environment that will refresh our code everytime we make changes.</p>
+                <p>To recap, the commands we've entered into our command prompt are as follows:</p>
+<pre class="console"><code>cd &#60;path&#62;
+npm init -y
+npm i express jsonwebtoken dotenv
+npm i --save-dev nodemon
+</code></pre>
+                <p>The next thing we're going to want to do is create two files, <span class="code-highlight">.env</span> and <span class="code-highlight">server.js</span>. We'll need to open up our <span class="code-highlight">package.json</span>, head to the <span class="code-highlight">scripts</span> section, and add a script function for our nodemon package. Our scripts section should look something like this:</p>
+<pre class="json"><code>"scripts": {
+    "devStart": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+},
+</code></pre>
+                <p>Save the package.json, and we'll get started with our server.js. For future reference, you'll use the command <span class="code-highlight">npm run devStart</span> to run the server.js file.</p>
+                <p>As discussed earlier, we should already have the Rest Client for Visual Studio Code extension installed. So we'll create a file called <span class="code-highlight">requests.rest</span> that will help us simulate our requests, just to show what's happening.</p>
+                <p>Our folder structure should look pretty similar to something like this:</p>
+                <div class="img-wrap">
+                    <img src="assets/img/blog2/folder_structure.png" alt="Folder Structure">
+                </div>
+                <p class="question">Generating our secret tokens</p>
+                <p>Because we'll be signing our JSON Web Tokens, we need to create secrets that only the server should know. These should be randomly generated, how they are generated wont matter, but it is best you do it securely.</p>
+                <p>We will be using node to quickly generate a token, which will be our access secret used for our access tokens. Which looks something like this in our command prompt:</p>
+<pre class="console"><code>node
+require( 'crypto' ).randomBytes( 64 ).toString( 'hex' )
+</code></pre>
+                <p>Once that command is executed, you will have a secret to use. We've been generated this to use for our secret:<pre><code>503e32e48e0fe363302b419a0839518e65c4b352ce623eb5df87e8d9250478050e4548b702d8b72292a4c609ed87b9c0f889d1dd78cdc7fbdce0d9cec37b26d2</code></pre></p>
+                <p>Head over to your .env file, and input the following to create our environment variable:</p>
+                <pre class="plaintext"><code>ACCESS_TOKEN_SECRET=503e32e48e0fe363302b419a0839518e65c4b352ce623eb5df87e8d9250478050e4548b702d8b72292a4c609ed87b9c0f889d1dd78cdc7fbdce0d9cec37b26d2</code></pre>
+                <p class="question">Creating our server.js</p>
+                <p>
+                    We'll need to include our express and jsonwebtoken libraries, so we'll use <span class="code-highlight">require</span> to include them in our project. We'll also need to configure some routes, so we'll make a POST route called <span class="code-highlight">login</span> and a GET route called <span class="code-highlight">dashboard</span> that will return data that only an authenticated user should have access to.
+                </p>
+                <p>If you've been able to follow along, our server.js should look like this:</p>
+<pre class="javascript"><code>require( 'dotenv' ).config()
+const express = require( 'express' );
+const app = express();
+const jwt = require( 'jsonwebtoken' );
+
+app.use( express.json() );
+app.get( '/dashboard', (req, res) =>
+{
+
+});
+
+app.post( '/login', (req, res) =>
+{
+
+});
+
+app.listen( 3000 );
+</code>
+</pre>
+            <p>We're not going to show how to authenticate the user, as that is not the purpose of JSON Web Tokens. So instead, we're going to show what we do after the user has authenticated, and how we sign and verify our JSON Web Token.</p>
+            <p>We will be grabbing the username from our request body, and creating a user object that will contain our user information. We will then use JSON Web Tokens to sign a token using our environment secret token.</p>
+            <p>It should look briefly something like this:</p>
+<pre class="javascript"><code>app.post( '/login', (req, resp) =>
+{
+    const user = { name: req.body.username };
+    const accessToken = jwt.sign( user, process.env.ACCESS_TOKEN_SECRET );
+
+    // return the token
+    resp.json( { accessToken: accessToken } );
+});
+</code></pre>
+            <p>It should be noted at this point, that these tokens do not expire! The next thing we want to do, is make sure our code is working. So with the command we referenced earlier, we'll start up our server using nodemon</p>
+            <p>Next, we'll add the following into our requests.rest file to simulate a request:</p>
+<pre class="plaintext"><code>POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "Steven"
+}
+</code></pre>
+            <p>We'll hit the Send Request button, and we should be able to see that our code is working correctly.</p>
+            <div class="img-wrap">
+                <img src="assets/img/blog2/first_request.png" alt="First Request">
+            </div>
+            <p>
+                Now that we know our code is working correctly, we'll want to create a function to authenticate our accessToken before we allow the user into the dashboard. We'll have the parameters <span class="code-highlight">req, resp, next</span>. You may notice we've added a new parameter called next, this is just to move the request past our function onto the rest of our route we configured.
+            </p>
+            <p>To verify a token we receive, we'll use the verify function which we'll pass the token and our secret to verify it. Our verifyAuthenticationToken function will look something like this:</p>
+<pre class="javascript"><code>function verifyAuthenticationToken( req, resp, next )
+{
+    const authHeader = req.headers[ 'authorization' ];
+    const token = authHeader && authHeader.split( ' ' )[1];
+    
+    // if there is no authorization header
+    if( token == null )
+        return resp.sendStatus( 401 );
+
+    jwt.verify( token, process.env.ACCESS_TOKEN_SECRET, (error, accessToken) =>
+    {
+        // failed to verify the token
+        if( error )
+            return resp.sendStatus( 401 );
+        
+        // otherwise, pass the accessToken onwards
+        req.accessToken = accessToken;
+        next();
+    });
+}
+</code></pre>
+            <p>We should also re-configure our route to first call our verifyAuthenticationToken function. So it'll look like this now:</p>
+<pre class="javascript"><code>app.get( '/dashboard', verifyAuthenticationToken, (req, resp) =>
+{
+
+});
+</code></pre>
+            <p>As part of showcasing that the code is working correctly, we're going to create a little list with content that will be unique to each user, so let's quickly put this in our server.js above our dashboard route:</p>
+<pre class="javascript"><code>const uniqueUserContent = [
+    {
+        username: 'Steven',
+        content: 'Hi, Steven!'
+    },
+    {
+        username: 'Person',
+        content: 'Hi, Person!'
+    }
+];
+</code></pre>
+            <p>So now we need to configure our dashboard to relay this information when we request the dashboard. So lets do exactly that with the filter function!</p>
+<pre class="javascript"><code>app.get( '/dashboard', verifyAuthenticationToken, (req, resp) =>
+{
+    // we'll access the 'name' variable that we originally passed when creating our accessToken in our /login route.
+    resp.json( uniqueUserContent.filter( users => users.username == req.accessToken.name ) );
+});
+</code></pre>
+            <p class="question">Creating our token - wrap up</p>
+            <p>Now that we have the basic minimum that will: </p>
+            <p>
+                <ul>
+                    <li>Generate a access token</li>
+                    <li>Return user-specific content based on the access token</li>
+                    <li>Verify that we created the token</li>
+                </ul>
+            </p>
+            <p>We can now test our entire flow in our requests.rest file. So in our requests.rest file, we will now craft a GET request after our POST request in which we received our access token:</p>
+<pre class="plaintext"><code>###
+    GET http://localhost:3000/dashboard
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU3RldmVuIiwiaWF0IjoxNjQ5MjI2NzY2fQ.ks1JqXWousB6gsDoj1q9NmaMaKQTonHXztAsr4ijfNQ
+</code></pre>
+            <p>As you can see, we have now received unique content for our user:</p>
+            <div class="img-wrap">
+                <img src="assets/img/blog2/second_request.png" alt="Second Request">
+            </div>
+            <p>That's it! You've successfully created a basic authentication using JSON Web Tokens. Although we did not cover expirations, it was not necessary for this post, and is quite trivial to implement. That will be something left as an exercise for you :). You can change up the username field to Person to generate a different token and see that the content will change.</p>
+            <p class="question">Special thanks to</p>
+            <p>
+                <ul>
+                    <li>
+                        <a href="https://www.youtube.com/channel/UCFbNIlppjAuEX4znoulh0Cw">Web Dev Simplified</a> for their JWT explanations.
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=soGRyl9ztjI">Java Brains</a> for their explanation on JWT authorization.
+                    </li>
+                </ul>
+            </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="post-block-footer">
+    <p>&copy; 2022 Steven Tran</p>
+</div>
+</body>
+</html>
