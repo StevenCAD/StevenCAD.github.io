@@ -30,7 +30,7 @@
             </div>
             <div class="blog-content">
                 <p class="question">Focus</p>
-                <p>In my <a href="index.html">previous blog post</a>, I discussed what JSON web tokens are, and it's purpose. In this post, we are going to showcase a step-by-step implementation of JSON web tokens for authentication using Node.js. If you would like a bit more in-depth knowledge of the process of authentication, you can check out <a href="https://www.youtube.com/watch?v=soGRyl9ztjI">this video</a>.</p>
+                <p>In my <a href="index.html">previous blog post</a>, I discussed what JSON web tokens are, and it's purpose. In this post, we are going to showcase a step-by-step implementation of JSON web tokens for authentication using Node.js. If you would like a bit more in-depth knowledge of the process of authentication, you can check out <a href="https://www.youtube.com/watch?v=soGRyl9ztjI">this video</a>. If you would like to watch my video tutorial that covers each step as seen in this blog, you can check out my video <a href="https://youtu.be/87ZMa7WVsns">here</a>.</p>
                 <p class="question">Prerequisites</p>
                 <p>Before getting started, you should have a basic understanding of Node.js and programming. This will make it easier for you to understand what we're doing.</p>
                 <p>You'll need <a href="https://www.npmjs.com/">node package manager (npm)</a>, and an extension called Rest Client for Visual Studio Code. We'll be developing this entire project with Visual Studio Code.</p>
@@ -39,7 +39,7 @@
                     So, assuming you understand the basics of Node.js, we're going to get straight into setting up our project. The first thing you want to do is create a folder that will contain your project, and you'll want to <span class="code-highlight">cd</span> into that directory using a command prompt. The next thing you'll want to do is enter <span class="code-highlight">npm init -y</span> to initialize your Node.js project.
                 </p>
                 <p>
-                    We're going to use two libraries, <span class="code-highlight">express</span> and a library called <span class="code-highlight">jsonwebtoken</span>. We'll also be using environment variables to store our secret tokens for JSON Web Tokens. So the next command we'll enter into our command prompt is <span class="code-highlight">npm i express jsonwebtoken dotenv</span>.
+                    We're going to use a few libraries, <span class="code-highlight">express</span> and a library called <span class="code-highlight">jsonwebtoken</span>. We'll also be using environment variables to store our secret tokens for JSON Web Tokens. So the next command we'll enter into our command prompt is <span class="code-highlight">npm i express jsonwebtoken dotenv</span>.
                 </p>
                 <p>Lastly, we're going to install <span class="code-highlight">nodemon</span>, which will be our developer environment that will refresh our code everytime we make changes.</p>
                 <p>To recap, the commands we've entered into our command prompt are as follows:</p>
@@ -80,12 +80,12 @@ const app = express();
 const jwt = require( 'jsonwebtoken' );
 
 app.use( express.json() );
-app.get( '/dashboard', (req, res) =>
+app.get( '/dashboard', (req, resp) =>
 {
 
 });
 
-app.post( '/login', (req, res) =>
+app.post( '/login', (req, resp) =>
 {
 
 });
